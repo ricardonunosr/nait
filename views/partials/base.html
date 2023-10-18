@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LimeSet | Nait</title>
+        <meta name="description"
+              content="Buy and Reserve tickets in your favorite night club">
+        <!-- Web Library -->
+        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+        <!-- Styling -->
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Payments -->
+        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+        <!-- Dont know -->
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
+                defer></script>
+    </head>
+    <body class="mx-4">
+        {% include 'partials/header.html' %}
+        {% block content %}{% endblock %}
+        {% include 'partials/footer.html' %}
+    </body>
+</html>

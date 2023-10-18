@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS staff;
+
+DROP TABLE IF EXISTS events_name;
+
+DROP TABLE IF EXISTS events;
