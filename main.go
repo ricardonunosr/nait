@@ -47,6 +47,7 @@ func main() {
 
 	// Guest ------------------------------
 	guest := app.Group("/guest")
+	guest.Get("/completed", handlers.HandleCompletedView)
 	guest.Get("/:username", handlers.HandleGuestView)
 
 	// Event ------------------------------

@@ -25,6 +25,7 @@ require (
 	github.com/nedpals/postgrest-go v0.1.3 // indirect
 	github.com/nedpals/supabase-go v0.3.0
 	github.com/rivo/uniseg v0.4.4 // indirect
+	github.com/stripe/stripe-go v70.15.0+incompatible
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
 	github.com/valyala/fasthttp v1.50.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect

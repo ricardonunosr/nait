@@ -26,14 +26,17 @@
                         <i class="fab fa-instagram" aria-hidden="true"></i>
                     </a>
                 </div>
-                <select name="event_date" hx-get="/event" hx-target="#buy-button" hx-indicator=".htmx-indicator">
-                   {% for event in Next5Events %}
-                    <option value={{ event.EventDate }}>{{ event.EventName }} {{ event.EventDate }}</option>
-                   {% endfor %}
+                <select name="event_date"
+                        hx-get="/event"
+                        hx-target="#buy-button"
+                        hx-indicator=".htmx-indicator"
+                        class="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    {% for event in Next5Events %}
+                        <option value={{ event.EventDate }}>{{ event.EventName }} {{ event.EventDate }}
+                        </option>
+                    {% endfor %}
                 </select>
-                <a href={{ EventURL }} id="buy-button">Buy</a>
-                <stripe-buy-button buy-button-id="buy_btn_1O0lGOE8QTRfyHUcxzWF3jgA" publishable-key="pk_test_51NxxzAE8QTRfyHUcnQaSvgVPpsJX1QqaB9Z9PfOgbHseYrSx3T3z1tIrPm55MNT9q5JTzpthHVoayvjH12193q6S00iiy7el5X" client-reference-id="{{ GuestUsername }}">
-                </stripe-buy-button>
+                <a class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline" href={{ EventURL }} id="buy-button">Buy</a>
             </div>
         </div>
     </main>

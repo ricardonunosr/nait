@@ -1,9 +1,5 @@
 package data
 
-import (
-	"time"
-)
-
 type Admin struct {
 	Email    string `json:"email" form:"email"`
 	Password string `json:"password" form:"password"`
@@ -34,6 +30,12 @@ type EventName struct {
 
 type Event struct {
 	EventName string
-	EventDate time.Time
+	EventDate string
 	EventURL  string
+}
+
+type Code struct {
+	EventDate         string
+	Code              string
+	CheckoutSessionId string
 }

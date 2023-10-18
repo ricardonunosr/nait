@@ -68,3 +68,30 @@ VALUES
         3,
         "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
     );
+
+CREATE TABLE IF NOT EXISTS codes(
+    event_date DATE,
+    code TEXT,
+    checkout_session_id TEXT,
+    PRIMARY KEY(event_date, code),
+    CONSTRAINT fk_event_date FOREIGN KEY(event_date) REFERENCES events(event_date) ON DELETE CASCADE
+)
+
+INSERT INTO
+    codes (event_date, code, checkout_session_id)
+VALUES
+    (
+        "2023-10-18",
+        "9999",
+        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+    ),
+    (
+        "2023-10-12",
+        "9998",
+        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+    ),
+    (
+        "2023-10-02",
+        "9997",
+        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+    );

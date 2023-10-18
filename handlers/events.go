@@ -71,6 +71,13 @@ func HandleCreateNewEvent(c *fiber.Ctx) error {
 		log.Println("Success! Here is your starter subscription price id: " + starter_price.ID)
 
 		params := &stripe.PaymentLinkParams{
+			Metadata: map[string]string{"date": event_date},
+			AfterCompletion: &stripe.PaymentLinkAfterCompletionParams{
+				Type: stripe.String("redirect"),
+				Redirect: &stripe.PaymentLinkAfterCompletionRedirectParams{
+					URL: stripe.String(fmt.Sprintf("http://localhost:8080/guest/completed?session_id={CHECKOUT_SESSION_ID}&event_date=%s", event_date)),
+				},
+			},
 			LineItems: []*stripe.PaymentLinkLineItemParams{
 				{
 					Price:    stripe.String(starter_price.ID),
@@ -92,7 +99,6 @@ func HandleCreateNewEvent(c *fiber.Ctx) error {
 		log.Println(pl.URL)
 
 		return c.SendString("Success")
-
 	}
 
 	return c.SendString("Failed")
