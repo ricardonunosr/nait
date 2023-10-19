@@ -24,10 +24,6 @@ confirm:
 run:
 	@air
 
-## run: run the main application
-.PHONY: build
-build:
-	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
 
 ## db/migrations/new name=$1: create a new database migration
 .PHONY: db/migrations/new
@@ -64,3 +60,25 @@ vendor:
 	go mod verify
 	@echo 'Vendoring dependencies...'
 	go mod vendor
+
+# ==================================================================================== #
+# BUILD
+# ==================================================================================== #
+
+## build: build tailwind css sheet
+.PHONY: build/css
+build/css:
+	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
+
+current_time = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
+git_description = $(shell git describe --always --dirty --tags --long)
+linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_description}'
+
+## build: build the application
+.PHONY: build
+build:
+	@echo 'Building cmd/api...'
+	go build -ldflags=${linker_flags} -o=./dist/server .
+	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
+	cp -r ./static ./dist
+	cp .env ./dist
