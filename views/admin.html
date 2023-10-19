@@ -66,16 +66,24 @@
             <a type="button" href="/admin/staff/new" class="btn-primary">Add Staff</a>
         </div>
         <hr class="solid">
-        <form hx-post="/event/name/new" class="form-primary">
+        <!-- Add Event Name-->
+        <form hx-post="/event/name/new"
+              hx-target="#error_event_name"
+              class="form-primary">
             <label for="event">Event Theme</label>
             <input class="text-input-primary"
                    type="text"
                    id="eventname"
                    name="eventname">
             <button class="btn-primary">Add Event name</button>
+            <div id="error_event_name"></div>
         </form>
+        <!-- End -->
+        <!-- Add Event -->
         <hr class="solid">
-        <form hx-post="/event/name/new" class="form-primary">
+        <form hx-post="/event/new"
+              hx-target="#error_event_add"
+              class="form-primary">
             <label for="event">Event Date</label>
             <input class="text-input-primary"
                    type="date"
@@ -88,7 +96,9 @@
                 {% endfor %}
             </select>
             <button class="btn-primary">Add Event Date</button>
+            <div id="error_event_add"></div>
         </form>
+        <!-- End -->
         <hr class="solid">
         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
