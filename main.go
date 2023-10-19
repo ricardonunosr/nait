@@ -54,6 +54,7 @@ func main() {
 	// Event ------------------------------
 	event := app.Group("/event")
 	event.Get("/", handlers.HandleGetEvent)
+	event.Post("/check", handlers.HandleCheckCode)
 	event.Post("/new", handlers.HandleCreateNewEvent)
 	event.Post("/name/new", handlers.HandleCreateNewEventName)
 

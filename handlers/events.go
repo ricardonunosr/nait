@@ -124,3 +124,20 @@ func HandleCreateNewEventName(c *fiber.Ctx) error {
 	// TODO: change this! this error messaging is awful for user
 	return c.SendString(`<p>Something Went Wrong Registering Event name!</p>`)
 }
+
+func HandleCheckCode(c *fiber.Ctx) error {
+	guest_code := c.FormValue("guest_code")
+	event_date := "2023-11-01"
+
+	if guest_code != "" {
+		var event_code data.Code
+		db.DB.QueryRow("SELECT * FROM codes WHERE code = ? AND event_date = ?", guest_code, event_date).Scan(&event_code.EventDate, &event_code.Code, &event_code.CheckoutSessionId)
+		if event_code.Code != "" {
+			return c.SendString("Checked code successfully")
+		} else {
+			return c.SendString("Failed to check code...")
+		}
+	}
+
+	return c.SendString("Failed getting code...")
+}

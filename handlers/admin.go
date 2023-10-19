@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -77,7 +76,6 @@ func HandleStaffView(c *fiber.Ctx) error {
 		}
 		delete(promoters_details.GuestCountSold, "")
 		delete(promoters_details.GuestProfitSold, "")
-		log.Println(promoters_details)
 
 		var details []data.PromotersDetails2
 

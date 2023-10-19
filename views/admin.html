@@ -136,13 +136,16 @@
             </div>
         </div>
         <hr class="solid">
-        <form class="form-primary">
+        <form hx-post="/event/check"
+              hx-target="#error_code_check"
+              class="form-primary">
             <label for="guest_code">Check guest code</label>
             <input class="text-input-primary"
                    type="text"
                    id="guest_code"
                    name="guest_code">
             <button class="btn-primary">Check</button>
+            <div id="error_code_check"></div>
         </form>
     </section>
 {% endblock content %}
