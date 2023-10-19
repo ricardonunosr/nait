@@ -24,6 +24,11 @@ confirm:
 run:
 	@air
 
+## run: run the main application
+.PHONY: build
+build:
+	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
+
 ## db/migrations/new name=$1: create a new database migration
 .PHONY: db/migrations/new
 db/migrations/new:

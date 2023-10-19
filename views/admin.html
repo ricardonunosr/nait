@@ -1,6 +1,6 @@
-{% extends 'partials/base.html' %}
+{% extends "partials/base.html" %}
 {% block content %}
-    <section class="antialiased bg-gray-100 text-gray-600 h-screen px-4 my-10 flex flex-col justify-center space-y-4">
+    <section class="antialiased  text-gray-600 px-4 my-10 mx-[10%] flex flex-col justify-center space-y-4">
         <div class="flex flex-col justify-center">
             <!-- Table -->
             <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
@@ -63,33 +63,33 @@
             </div>
         </div>
         <div class="my-10">
-            <a type="button"
-               href="/admin/staff/new"
-               class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
-                Add Staff
-            </a>
+            <a type="button" href="/admin/staff/new" class="btn-primary">Add Staff</a>
         </div>
-
-        <form hx-post="/event/name/new">
+        <hr class="solid">
+        <form hx-post="/event/name/new" class="form-primary">
             <label for="event">Event Theme</label>
-            <input type="text" id="eventname" name="eventname">
-            <button class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
-                Add Event name
-            </button>
+            <input class="text-input-primary"
+                   type="text"
+                   id="eventname"
+                   name="eventname">
+            <button class="btn-primary">Add Event name</button>
         </form>
-
-        <form hx-post="/event/new">
+        <hr class="solid">
+        <form hx-post="/event/name/new" class="form-primary">
             <label for="event">Event Date</label>
-            <input type="date" id="event_date" name="event_date">
-            <select name="event_name" id="event_name">
+            <input class="text-input-primary"
+                   type="date"
+                   id="event_date"
+                   name="event_date">
+            <select class="select-primary" name="event_name" id="event_name">
                 {% for en in EventNames %}
-                 <option value={{ en.EventID }}>{{ en.EventName}}</option>
-                {% endfor%}
+                    <option value={{ en.EventID }}>{{ en.EventName }}
+                    </option>
+                {% endfor %}
             </select>
-            <button class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
-                Add Event Date
-            </button>
+            <button class="btn-primary">Add Event Date</button>
         </form>
+        <hr class="solid">
         <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200">
             <header class="px-5 py-4 border-b border-gray-100">
                 <h2 class="font-semibold text-gray-800">Events</h2>
@@ -125,14 +125,14 @@
                 </div>
             </div>
         </div>
-        <form>
+        <hr class="solid">
+        <form class="form-primary">
             <label for="guest_code">Check guest code</label>
-            <input type="text" id="guest_code" name="guest_code">
-            <a type="button"
-               href=""
-               class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
-                Check
-            </a>
+            <input class="text-input-primary"
+                   type="text"
+                   id="guest_code"
+                   name="guest_code">
+            <button class="btn-primary">Check</button>
         </form>
     </section>
-{% endblock %}
+{% endblock content %}

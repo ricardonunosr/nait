@@ -20,7 +20,7 @@ func HandleGetEvent(c *fiber.Ctx) error {
 	row, err := db.DB.Query("SELECT event_payment_url from events WHERE event_date = ?", event_date)
 
 	if err != nil {
-		return c.SendString("Something went wront getting payment url...")
+		return c.SendString("Something went wrong getting payment url...")
 	}
 
 	var event_payment_url string
@@ -106,8 +106,6 @@ func HandleCreateNewEvent(c *fiber.Ctx) error {
 
 func HandleCreateNewEventName(c *fiber.Ctx) error {
 	event_name := new(data.EventName)
-
-	print(c.Body())
 
 	if err := c.BodyParser(event_name); err != nil {
 		return err

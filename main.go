@@ -29,6 +29,7 @@ func main() {
 		File: "./static/favicon.ico",
 		URL:  "/favicon.ico",
 	}))
+	app.Static("/", "./static")
 
 	// Main Page ---------------------------
 	app.Get("/", func(c *fiber.Ctx) error {
@@ -40,8 +41,8 @@ func main() {
 	// Admin ------------------------------
 	admin := app.Group("/admin")
 	admin.Get("/", handlers.HandleStaffView)
-	admin.Get("/login", handlers.HandleLogInView)
-	admin.Post("/login", handlers.HandleLogIn)
+	admin.Get("/signin", handlers.HandSignInView)
+	admin.Post("/signin", handlers.HandleSignIn)
 	admin.Get("/staff/new", handlers.HandleRegisterStaffView)
 	admin.Post("/staff", handlers.HandleRegisterStaff)
 

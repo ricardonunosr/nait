@@ -53,14 +53,18 @@ func HandleGuestView(c *fiber.Ctx) error {
 	}
 
 	// Get the stripe url for the first select
-	first_event_url := next_5_events[0].EventURL
+	// TODO: handle this better!
+	if len(next_5_events) != 0 {
+		first_event_url := next_5_events[0].EventURL
+		_ = first_event_url
+	}
 
 	return c.Render("pay", fiber.Map{
 		"GuestUsername":  staff.Username,
 		"GuestFirstname": staff.Firstname,
 		"GuestLastname":  staff.Lastname,
 		"Next5Events":    next_5_events,
-		"EventURL":       first_event_url,
+		// "EventURL":       first_event_url,
 	})
 }
 
@@ -75,7 +79,7 @@ func HandleCompletedView(c *fiber.Ctx) error {
 	db.DB.QueryRow("SELECT * FROM codes WHERE checkout_session_id = ? AND event_date = ?", session_id, event_date).Scan(&code.EventDate, &code.Code, &code.CheckoutSessionId)
 	if code.Code != "" {
 		log.Println("Already a code generated for this checkout session and event date...")
-		return c.Render("completed", fiber.Map{
+		return c.Render("404", fiber.Map{
 			"ClubName": os.Getenv("CLUB_NAME"),
 		})
 	}
@@ -94,9 +98,7 @@ func HandleCompletedView(c *fiber.Ctx) error {
 			return c.Render("404", fiber.Map{})
 		}
 
-		return c.Render("completed", fiber.Map{
-			"ClubName": os.Getenv("CLUB_NAME"),
-		})
+		return c.Render("completed", fiber.Map{})
 	} else {
 		log.Println("Did not find a checkout session id...")
 		return c.Render("404", fiber.Map{})

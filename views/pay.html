@@ -30,13 +30,13 @@
                         hx-get="/event"
                         hx-target="#buy-button"
                         hx-indicator=".htmx-indicator"
-                        class="bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        class="select-primary">
                     {% for event in Next5Events %}
-                        <option value={{ event.EventDate }}>{{ event.EventName }} {{ event.EventDate }}
+                        <option value={{ event.EventDate }}>{{ event.EventName }}  {{ event.EventDate }}
                         </option>
                     {% endfor %}
                 </select>
-                <a class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline" href={{ EventURL }} id="buy-button">Buy</a>
+                <a class="btn-primary my-3" href={{ EventURL|default:"/" }} id="buy-button">Buy</a>
             </div>
         </div>
     </main>
@@ -44,4 +44,4 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
           integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
           crossorigin="anonymous" />
-{% endblock %}
+{% endblock content %}

@@ -6,19 +6,14 @@
         <title>LimeSet | Nait</title>
         <meta name="description"
               content="Buy and Reserve tickets in your favorite night club">
+        <!-- TailwindCSS-->
+        <link href="/output.css" rel="stylesheet">
         <!-- Web Library -->
-        <script src="https://unpkg.com/htmx.org@1.9.6"></script>
-        <!-- Styling -->
-        <script src="https://cdn.tailwindcss.com"></script>
-        <!-- Payments -->
-        <script async src="https://js.stripe.com/v3/buy-button.js"></script>
-        <!-- Dont know -->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js"
-                defer></script>
+        <script src="/htmx.min.js"></script>
     </head>
     <body class="mx-4">
-        {% include 'partials/header.html' %}
-        {% block content %}{% endblock %}
-        {% include 'partials/footer.html' %}
+        {% include "partials/header.html" %}
+        {% block content %}{% endblock content %}
+        {% include "partials/footer.html" %}
     </body>
 </html>

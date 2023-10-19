@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-lime-500 text-white font-semibold rounded-lg shadow-md hover:bg-lime-700 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:ring-opacity-75 text-center;
+  }
+
+  .select-primary {
+    @apply bg-slate-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5;
+  }
+
+  .text-input-primary{
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-lime-500 focus:border-lime-500 block w-full p-2.5;
+  }
+
+  .form-primary{
+    @apply space-y-4
+  }
+}

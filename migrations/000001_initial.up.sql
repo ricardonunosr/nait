@@ -50,24 +50,24 @@ CREATE TABLE IF NOT EXISTS events(
     CONSTRAINT fk_event_id FOREIGN KEY(event_id) REFERENCES events_name(event_id) ON DELETE CASCADE
 );
 
-INSERT INTO
-    events (event_date, event_id, event_payment_url)
-VALUES
-    (
-        "2023-10-18",
-        1,
-        "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
-    ),
-    (
-        "2023-10-12",
-        2,
-        "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
-    ),
-    (
-        "2023-10-02",
-        3,
-        "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
-    );
+-- INSERT INTO
+--     events (event_date, event_id, event_payment_url)
+-- VALUES
+--     (
+--         "2023-10-18",
+--         1,
+--         "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
+--     ),
+--     (
+--         "2023-10-12",
+--         2,
+--         "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
+--     ),
+--     (
+--         "2023-10-02",
+--         3,
+--         "https://buy.stripe.com/test_9AQg0F6vV5Z8fGE4gh"
+--     );
 
 CREATE TABLE IF NOT EXISTS codes(
     event_date DATE,
@@ -77,21 +77,21 @@ CREATE TABLE IF NOT EXISTS codes(
     CONSTRAINT fk_event_date FOREIGN KEY(event_date) REFERENCES events(event_date) ON DELETE CASCADE
 )
 
-INSERT INTO
-    codes (event_date, code, checkout_session_id)
-VALUES
-    (
-        "2023-10-18",
-        "9999",
-        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
-    ),
-    (
-        "2023-10-12",
-        "9998",
-        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
-    ),
-    (
-        "2023-10-02",
-        "9997",
-        "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
-    );
+-- INSERT INTO
+--     codes (event_date, code, checkout_session_id)
+-- VALUES
+--     (
+--         "2023-10-18",
+--         "9999",
+--         "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+--     ),
+--     (
+--         "2023-10-12",
+--         "9998",
+--         "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+--     ),
+--     (
+--         "2023-10-02",
+--         "9997",
+--         "cs_test_a1ZLpA3runai9OliuNihAhMb1tVtRoGjW0WMX08kt6Or4D6MVrZI2knSuJ"
+--     );

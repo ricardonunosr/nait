@@ -23,7 +23,17 @@ func IsUserSignedIn(c *fiber.Ctx) bool {
 	return false
 }
 
-func HandleLogIn(c *fiber.Ctx) error {
+func HandSignInView(c *fiber.Ctx) error {
+	if IsUserSignedIn(c) {
+		c.Redirect("/admin")
+	}
+
+	// TODO: for some reason the cookie is not being cleared properly
+	c.ClearCookie("accessToken")
+	return c.Render("signin", fiber.Map{})
+}
+
+func HandleSignIn(c *fiber.Ctx) error {
 	admin := new(data.Admin)
 	if err := c.BodyParser(admin); err != nil {
 		return err

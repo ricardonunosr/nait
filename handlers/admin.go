@@ -127,5 +127,5 @@ func HandleStaffView(c *fiber.Ctx) error {
 			"EventNames":       event_names,
 		})
 	}
-	return c.Redirect("/admin/login")
+	return c.Redirect("/admin/signin")
 }
