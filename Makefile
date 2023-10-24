@@ -1,5 +1,5 @@
 # Include variables from .env file
-include .env
+# include .env
 
 # ==================================================================================== #
 # HELPERS
@@ -81,4 +81,3 @@ build:
 	go build -ldflags=${linker_flags} -o=./dist/server .
 	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
 	cp -r ./static ./dist
-	cp .env ./dist
