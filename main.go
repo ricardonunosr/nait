@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -58,5 +59,5 @@ func main() {
 	event.Post("/new", handlers.HandleCreateNewEvent)
 	event.Post("/name/new", handlers.HandleCreateNewEventName)
 
-	log.Fatal(app.Listen(":8080"))
+	log.Fatal(app.Listen(fmt.Sprintf(":%s", os.Getenv("PORT"))))
 }

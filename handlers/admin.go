@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"log"
 	"os"
 
 	"github.com/gofiber/fiber/v2"
@@ -45,6 +46,7 @@ func HandleStaffView(c *fiber.Ctx) error {
 		rows, err := db.DB.Query("SELECT * FROM staff")
 
 		if err != nil {
+			log.Printf("Database error: %s\n", err)
 			return c.Render("404", fiber.Map{})
 		}
 

@@ -68,16 +68,19 @@ vendor:
 ## build: build tailwind css sheet
 .PHONY: build/css
 build/css:
-	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
+	tailwindcss -i ./views/input.css -o ./static/output.css --minify
 
 current_time = $(shell date -u +"%Y-%m-%dT%H:%M:%SZ")
 git_description = $(shell git describe --always --dirty --tags --long)
-linker_flags = '-s -X main.buildTime=${current_time} -X main.version=${git_description}'
+linker_flags = '-s -w -X main.buildTime=${current_time} -X main.version=${git_description} -linkmode external -extldflags "-static"'
 
 ## build: build the application
 .PHONY: build
 build:
 	@echo 'Building cmd/api...'
 	go build -ldflags=${linker_flags} -o=./dist/server .
-	npx tailwindcss -i ./views/input.css -o ./static/output.css --minify
+	tailwindcss -i ./views/input.css -o ./static/output.css --minify
 	cp -r ./static ./dist
+	cp -r ./views ./dist
+	cp database.db ./dist/database.db
+	cp .env ./dist

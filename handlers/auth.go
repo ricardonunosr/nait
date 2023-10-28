@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"context"
+	"log"
 	"os"
 
 	"github.com/ricardonunosr/nait/data"
@@ -46,6 +47,7 @@ func HandleSignIn(c *fiber.Ctx) error {
 	})
 
 	if err != nil {
+		log.Printf("Supabase auth error: %s\n", err)
 		c.Set("Content-Type", "text/html")
 		return c.SendString(`<p>Failed to login</p>`)
 	}

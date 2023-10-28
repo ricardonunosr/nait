@@ -1,5 +1,5 @@
 tmp
 *.db
 vendor
-.env
+# .env
 dist
