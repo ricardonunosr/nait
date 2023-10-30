@@ -22,7 +22,7 @@ make run
 # Dockerfile
 ```bash
 docker build . -t nait
-docker run -d -p 8080:8080 --rm --name nait_app nait
+docker run -p 80:80 --env-file .env --rm --name nait_app nait
 ```
 
 # `.env` example

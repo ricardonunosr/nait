@@ -112,9 +112,14 @@ func HandleCreateNewEventName(c *fiber.Ctx) error {
 	}
 
 	if event_name.EventName != "" {
-		db.DB.Exec(" INSERT INTO events_name (event_name) VALUES(?)",
+		_, err := db.DB.Exec(" INSERT INTO events_name (event_name) VALUES(?)",
 			event_name.EventName,
 		)
+
+		if err != nil {
+			log.Printf("Database error: %s", err)
+			return c.SendString(`Something went wrong!`)
+		}
 
 		c.Set("Content-Type", "text/html")
 		return c.SendString(`<p>Registered Event Name!</p>`)
