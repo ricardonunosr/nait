@@ -2,12 +2,14 @@
 
 ## Tech Stack
 - [htmx](https://htmx.org)
-- [TailwindCSS](https://tailwindcss.com/)
-- [Django Templates]()
-- [Stripe]()
-- [Go]()
-- [Fiber]()
+- [TailwindCSS](https://tailwindcss.com)
+- [Django Templates](https://docs.djangoproject.com/en/4.2/topics/templates)
+- [Stripe](https://stripe.com/docs/api)
+- [Go](https://go.dev)
+- [Fiber](https://docs.gofiber.io)
 - [migrate](https://github.com/golang-migrate/migrate)
+- [SQLite](https://www.sqlite.org/index.html)
+- [Supabase](https://supabase.com)
 
 ## Local Development
 
