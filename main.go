@@ -1,9 +1,11 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
+	"runtime/pprof"
 
 	"github.com/ricardonunosr/nait/db"
 	"github.com/ricardonunosr/nait/handlers"
@@ -15,7 +17,20 @@ import (
 	"github.com/gofiber/template/django/v3"
 )
 
+var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+
 func main() {
+	flag.Parse()
+	log.Printf("CPU Profiling file path: %s\n", *cpuprofile)
+	if *cpuprofile != "" {
+		f, err := os.Create(*cpuprofile)
+		if err != nil {
+			log.Fatal(err)
+		}
+		pprof.StartCPUProfile(f)
+		defer pprof.StopCPUProfile()
+	}
+
 	err := godotenv.Load(".env")
 
 	if err != nil {
