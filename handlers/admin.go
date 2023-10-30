@@ -21,13 +21,18 @@ func HandleRegisterStaff(c *fiber.Ctx) error {
 	}
 
 	if staff.Firstname != "" {
-		db.DB.Exec(" INSERT INTO staff (username, email, firstname, lastname, password) VALUES(?,?,?,?,?)",
+		_, err := db.DB.Exec(" INSERT INTO staff (username, email, firstname, lastname, password) VALUES(?,?,?,?,?)",
 			staff.Username,
 			staff.Email,
 			staff.Firstname,
 			staff.Lastname,
 			staff.Password,
 		)
+
+		if err != nil {
+			log.Printf("Database error: %s", err)
+			return c.SendString("Something went wrong")
+		}
 
 		c.Set("Content-Type", "text/html")
 		c.SendString(`<p>Registered Staff!</p>`)
