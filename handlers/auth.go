@@ -53,6 +53,7 @@ func HandleSignIn(c *fiber.Ctx) error {
 	}
 
 	c.Cookie(&fiber.Cookie{
+		SameSite: "Strict",
 		Secure:   true,
 		HTTPOnly: true,
 		Name:     "accessToken",
