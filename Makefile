@@ -83,4 +83,3 @@ build:
 	cp -r ./static ./dist
 	cp -r ./views ./dist
 	cp database.db ./dist/database.db
-	cp .env ./dist

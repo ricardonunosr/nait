@@ -21,7 +21,6 @@ COPY handlers/*.go ./handlers/
 COPY static/* ./static/
 COPY views/ ./views/
 COPY main.go ./
-COPY .env ./
 COPY Makefile ./
 COPY tailwind.config.js ./
 COPY database.db.seed ./database.db

@@ -24,3 +24,20 @@ make run
 docker build . -t nait
 docker run -d -p 8080:8080 --rm --name nait_app nait
 ```
+
+# `.env` example
+
+```.env
+CLUB_NAME=LimeSet
+PORT=80
+
+# Supabase
+SUPABASE_URL=
+SUPABASE_KEY=
+
+# Database
+NAIT_DB_DSN=sqlite3://database.db
+
+# Stripe
+STRIPE_KEY=
+```
