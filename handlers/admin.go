@@ -46,14 +46,17 @@ func HandleRegisterStaff(c *fiber.Ctx) error {
 
 func HandleStaffView(c *fiber.Ctx) error {
 	if IsUserSignedIn(c) {
-		rows, err := db.DB.Query("SELECT * FROM staff")
+		rows, err := db.STAFF_LIST.Query()
+		// rows, err := db.DB.CONN.Query("SELECT * FROM staff")
 
 		if err != nil {
 			log.Printf("Database error: %s\n", err)
 			return c.Render("404", fiber.Map{})
 		}
 
-		var staffs []data.Staff
+		// var staffs []data.Staff
+		// NOTE: MAX 10 Staff
+		staffs := make([]data.Staff, 0, 10)
 
 		for rows.Next() {
 			var staff data.Staff
@@ -95,13 +98,14 @@ func HandleStaffView(c *fiber.Ctx) error {
 		// details = append(details, detail)
 
 		// Events
-		rows, err = db.DB.Query("SELECT e.event_date, en.event_name FROM events e INNER JOIN events_name en ON e.event_id = en.event_id")
+		rows, err = db.EVENTS_LIST.Query()
 
 		if err != nil {
 			return c.Render("404", fiber.Map{})
 		}
 
-		var events []data.Event
+		// var events []data.Event
+		events := make([]data.Event, 0, 10)
 
 		for rows.Next() {
 			var event data.Event
@@ -109,12 +113,13 @@ func HandleStaffView(c *fiber.Ctx) error {
 			events = append(events, event)
 		}
 
-		rows, err = db.DB.Query("SELECT * FROM events_name")
+		rows, err = db.EVENTS_NAME_LIST.Query()
 		if err != nil {
 			return c.Render("404", fiber.Map{})
 		}
 
-		var event_names []data.EventName
+		// var event_names []data.EventName
+		event_names := make([]data.EventName, 0, 10)
 
 		for rows.Next() {
 			var event_name data.EventName
