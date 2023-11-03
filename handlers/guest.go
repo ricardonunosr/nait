@@ -16,11 +16,11 @@ import (
 const otpChars = "1234567890"
 
 func HandleGuestView(c *fiber.Ctx) error {
-	guest_name := c.Params("username")
-	rows, err := db.DB.Query("SELECT * FROM staff WHERE username = ?", guest_name)
+	guestName := c.Params("username")
+	rows, err := db.Db.Query("SELECT * FROM staff WHERE username = ?", guestName)
 
 	if err != nil {
-		log.Println("[ERROR] Did not find ", guest_name, " ...")
+		log.Println("[ERROR] Did not find ", guestName, " ...")
 		return c.Render("404", fiber.Map{})
 	}
 
@@ -33,50 +33,49 @@ func HandleGuestView(c *fiber.Ctx) error {
 		return c.Render("404", fiber.Map{})
 	}
 
-	rows, err = db.DB.Query("SELECT en.event_name, e.event_date, e.event_payment_url FROM events e INNER JOIN events_name en ON e.event_id = en.event_id LIMIT 10")
+	rows, err = db.Db.Query("SELECT en.event_name, e.event_date, e.event_payment_url FROM events e INNER JOIN events_name en ON e.event_id = en.event_id LIMIT 10")
 
 	if err != nil {
 		return c.SendString("Could not find events!")
 	}
 
-	// TODO: Could make static
-	var next_5_events []data.Event
+	next5events := make([]data.Event, 5, 5)
 	for rows.Next() {
 		var event data.Event
 		rows.Scan(&event.EventName, &event.EventDate, &event.EventURL)
-		conv_date, err := time.Parse(time.RFC3339, event.EventDate)
+		convDate, err := time.Parse(time.RFC3339, event.EventDate)
 		if err != nil {
 			c.SendString("Failed conversion of date")
 		}
-		event.EventDate = conv_date.Format("2006-01-02")
-		next_5_events = append(next_5_events, event)
+		event.EventDate = convDate.Format("2006-01-02")
+		next5events = append(next5events, event)
 	}
 
 	// Get the stripe url for the first select
 	// TODO: handle this better!
-	if len(next_5_events) != 0 {
-		first_event_url := next_5_events[0].EventURL
-		_ = first_event_url
+	if len(next5events) != 0 {
+		firstEventUrl := next5events[0].EventURL
+		_ = firstEventUrl
 	}
 
 	return c.Render("pay", fiber.Map{
 		"GuestUsername":  staff.Username,
 		"GuestFirstname": staff.Firstname,
 		"GuestLastname":  staff.Lastname,
-		"Next5Events":    next_5_events,
+		"Next5Events":    next5events,
 		// "EventURL":       first_event_url,
 	})
 }
 
 func HandleCompletedView(c *fiber.Ctx) error {
 	stripe.Key = os.Getenv("STRIPE_KEY")
-	session_id := c.Query("session_id")
-	event_date := c.Query("event_date")
-	s, _ := session.Get(session_id, nil)
+	sessionId := c.Query("session_id")
+	eventDate := c.Query("event_date")
+	s, _ := session.Get(sessionId, nil)
 
-	// Check if there is a `code` already generated for the session_id and event_date
+	// Check if there is a `code` already generated for the sessionId and eventDate
 	var code data.Code
-	db.DB.QueryRow("SELECT * FROM codes WHERE checkout_session_id = ? AND event_date = ?", session_id, event_date).Scan(&code.EventDate, &code.Code, &code.CheckoutSessionId)
+	db.Db.QueryRow("SELECT * FROM codes WHERE checkout_session_id = ? AND event_date = ?", sessionId, eventDate).Scan(&code.EventDate, &code.Code, &code.CheckoutSessionId)
 	if code.Code != "" {
 		log.Println("Already a code generated for this checkout session and event date...")
 		return c.Render("404", fiber.Map{
@@ -92,7 +91,7 @@ func HandleCompletedView(c *fiber.Ctx) error {
 			return c.Render("404", fiber.Map{})
 		}
 
-		_, err = db.DB.Exec("INSERT INTO codes (code, event_date, checkout_session_id) VALUES(?,?,?)", otp, event_date, session_id)
+		_, err = db.Db.Exec("INSERT INTO codes (code, event_date, checkout_session_id) VALUES(?,?,?)", otp, eventDate, sessionId)
 		if err != nil {
 			log.Println("Something went wrong when inserting OTP...")
 			return c.Render("404", fiber.Map{})

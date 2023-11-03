@@ -21,7 +21,7 @@ func HandleRegisterStaff(c *fiber.Ctx) error {
 	}
 
 	if staff.Firstname != "" {
-		_, err := db.DB.Exec(" INSERT INTO staff (username, email, firstname, lastname, password) VALUES(?,?,?,?,?)",
+		_, err := db.Db.Exec(" INSERT INTO staff (username, email, firstname, lastname, password) VALUES(?,?,?,?,?)",
 			staff.Username,
 			staff.Email,
 			staff.Firstname,
@@ -46,7 +46,7 @@ func HandleRegisterStaff(c *fiber.Ctx) error {
 
 func HandleStaffView(c *fiber.Ctx) error {
 	if IsUserSignedIn(c) {
-		rows, err := db.STAFF_LIST.Query()
+		rows, err := db.StaffList.Query()
 		// rows, err := db.DB.CONN.Query("SELECT * FROM staff")
 
 		if err != nil {
@@ -98,7 +98,7 @@ func HandleStaffView(c *fiber.Ctx) error {
 		// details = append(details, detail)
 
 		// Events
-		rows, err = db.EVENTS_LIST.Query()
+		rows, err = db.EventsList.Query()
 
 		if err != nil {
 			return c.Render("404", fiber.Map{})
@@ -113,18 +113,18 @@ func HandleStaffView(c *fiber.Ctx) error {
 			events = append(events, event)
 		}
 
-		rows, err = db.EVENTS_NAME_LIST.Query()
+		rows, err = db.EventsNameList.Query()
 		if err != nil {
 			return c.Render("404", fiber.Map{})
 		}
 
-		// var event_names []data.EventName
-		event_names := make([]data.EventName, 0, 10)
+		// var eventNames []data.EventName
+		eventNames := make([]data.EventName, 0, 10)
 
 		for rows.Next() {
-			var event_name data.EventName
-			rows.Scan(&event_name.EventID, &event_name.EventName)
-			event_names = append(event_names, event_name)
+			var eventName data.EventName
+			rows.Scan(&eventName.EventID, &eventName.EventName)
+			eventNames = append(eventNames, eventName)
 		}
 
 		return c.Render("admin", fiber.Map{
@@ -132,7 +132,7 @@ func HandleStaffView(c *fiber.Ctx) error {
 			"Staff":    staffs,
 			// "PromotersDetails": details,
 			"Events":     events,
-			"EventNames": event_names,
+			"EventNames": eventNames,
 		})
 	}
 	return c.Redirect("/admin/signin")
